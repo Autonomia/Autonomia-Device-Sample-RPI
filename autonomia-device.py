@@ -106,7 +106,7 @@ connected = False
 
 # Connecting loop
 while not connected:
-  ret = auto.attachWithType(rpc_methods, device_info="ROV")
+  ret = auto.attach(rpc_methods, device_info="ROV")
   if auto.error != 0:
     print "Error in attaching to Autonomia. Retrying ...", auto.perror()
     time.sleep(10)
