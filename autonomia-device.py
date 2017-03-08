@@ -38,6 +38,16 @@ def applog(msg, escape=False):
 # 
 # RPC Methods
 
+def _get_info(params):
+  try:
+      uptime = subprocess.Popen("/bin/cat /proc/uptime", shell=True, stdout=subprocess.PIPE).stdout.read().decode()
+      meminfo = subprocess.Popen("head -3 /proc/meminfo", shell=True, stdout=subprocess.PIPE).stdout.read().decode()
+      cpuinfo = subprocess.Popen("tail -12 /proc/cpuinfo", shell=True, stdout=subprocess.PIPE).stdout.read().decode()
+      return '\nUpTime-------\n' + uptime + '\nMemInfo-------\n' + meminfo + '\nCpuInfo-------\n' + cpuinfo
+  except Exception, e:
+      print e
+      return "{\"msg\":\"" + e + "\"}"
+
 def _rexec(params):
   """Start a subprocess shell to execute the specified command and return its output.
 
@@ -94,11 +104,12 @@ auto = AutonomiaClient(application_key, applog, use_ssl=False)
 auto.debug = False
 
 # RPC method binding
-rpc_methods = ({'name':'rexec','function':_rexec}, 
+rpc_methods = ({'name':'get_info','function':_get_info}, 
+               {'name':'rexec','function':_rexec}, 
                {'name':'video_devices','function':_video_devices}, 
                {'name':'set_telemetry_period','function':_set_telemetry_period}, 
                {'name':'video_start','function':_video_start}, 
-               {'name':'video_stop','function':_video_stop}, 
+               {'name':'video_stop','function':_video_stop},
 )
 
 # Attach the device to Autonomia
