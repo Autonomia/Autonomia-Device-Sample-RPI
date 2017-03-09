@@ -6,6 +6,7 @@ Device-side Autonomia SDK test application
 import time
 import json
 import os
+import subprocess
 from autonomialib import AutonomiaClient
 
 # Fetch from the environment the application Key created in the Autonomia portal
