@@ -104,11 +104,11 @@ auto = AutonomiaClient(application_key, applog, use_ssl=False)
 auto.debug = False
 
 # RPC method binding
-rpc_methods = ({'name':'get_info','function':_get_info}, 
-               {'name':'rexec','function':_rexec}, 
-               {'name':'video_devices','function':_video_devices}, 
-               {'name':'set_telemetry_period','function':_set_telemetry_period}, 
-               {'name':'video_start','function':_video_start}, 
+rpc_methods = ({'name':'get_info','function':_get_info},
+               {'name':'rexec','function':_rexec},
+               {'name':'video_devices','function':_video_devices},
+               {'name':'set_telemetry_period','function':_set_telemetry_period},
+               {'name':'video_start','function':_video_start},
                {'name':'video_stop','function':_video_stop},
 )
 
