@@ -176,7 +176,7 @@ while True:
     msg = telemetry_msg()
     if gps: 
       print "GPS readings", gps.readings
-      msg.gps = gps.readings
+      msg['gps'] = gps.readings
     if auto.send_data(json.dumps(msg)) < 0:
       applog("Error in sending telemetry data.")
     else:
