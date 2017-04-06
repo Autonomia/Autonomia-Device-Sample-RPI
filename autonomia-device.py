@@ -32,7 +32,7 @@ application_key = os.environ.get('AUTONOMIA_APP_KEY', None)
 
 # Telemetry message period in seconds
 #
-telemetry_period = 15
+telemetry_period = 1
 # Telemetry data message
 #
 def telemetry_msg():
