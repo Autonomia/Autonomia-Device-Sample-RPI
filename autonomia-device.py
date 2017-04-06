@@ -1,13 +1,30 @@
 #!/usr/bin/env python
+"""
+  Device-side Autonomia SDK test application
 
+  Copyright 2016 Visible Energy Inc. All Rights Reserved.
 """
-Device-side Autonomia SDK test application
+__license__ = """
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 """
+
 import time
 import json
 import os
 import subprocess
 from autonomialib import AutonomiaClient
+from gpslib import GPS
+
+gpsDevice='/dev/ttyACM0'
+gpsSpeed='19200'
 
 # Fetch from the environment the application Key created in the Autonomia portal
 #
@@ -136,6 +153,15 @@ while not connected:
 applog("Device \"%s\" attached to Autonomia. Server timestamp: %d" % (auto.device_id, ret_obj['timestamp']))
 applog("Server returned: %s" % ret)
 
+# Connecting to GPS
+gps = GPS(syslog)
+ret = gps.connect(gpsDevice, gpsSpeed)
+if ret:
+  applog("Connected to GPS.")
+else:
+  gps = None
+  applog("Error connecting to GPS on % s. Disabling." % gpsDevice)
+
 applog("Starting camera.")
 _, url = auto.video_start()
 applog("Streaming to %s" % url)
@@ -153,5 +179,6 @@ while True:
     else:
       applog("Sending telemetry data: %s " % msg)
     last_telemetry = now
+    if gps: print "GPS readings", gps.readings
 
   time.sleep(1)
