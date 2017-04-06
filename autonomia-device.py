@@ -154,7 +154,7 @@ applog("Device \"%s\" attached to Autonomia. Server timestamp: %d" % (auto.devic
 applog("Server returned: %s" % ret)
 
 # Connecting to GPS
-gps = GPS(syslog)
+gps = GPS(applog)
 ret = gps.connect(gpsDevice, gpsSpeed)
 if ret:
   applog("Connected to GPS.")
