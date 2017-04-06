@@ -175,7 +175,6 @@ while True:
   if telemetry_period < now - last_telemetry: 
     msg = telemetry_msg()
     if gps: 
-      print "GPS readings", gps.readings
       msg['gps'] = {}
       msg['gps']['lat'] = gps.readings['lat']
       msg['gps']['lon'] = gps.readings['lon']
